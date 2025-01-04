@@ -50,6 +50,9 @@ class GameObject():
         self.position = CENTER
         self.body_color = None
 
+    def draw(self):
+        """Метод отрисовки для переоределения в дочерних классах"""
+
     def draw_cell(self, position, body_color=None, field=BORDER_COLOR):
         """Метод отрисовки одной ячейки"""
         rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
