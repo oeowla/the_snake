@@ -41,6 +41,18 @@ clock = pygame.time.Clock()
 # Центр игрового окна:
 CENTER = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
 
+# Словарь направлений для обработки действий пользователя:
+TURNS = {
+    (pygame.K_UP, LEFT): UP,
+    (pygame.K_UP, RIGHT): UP,
+    (pygame.K_DOWN, LEFT): DOWN,
+    (pygame.K_DOWN, RIGHT): DOWN,
+    (pygame.K_LEFT, UP): LEFT,
+    (pygame.K_LEFT, DOWN): LEFT,
+    (pygame.K_RIGHT, UP): RIGHT,
+    (pygame.K_RIGHT, DOWN): RIGHT,
+}
+
 
 class GameObject():
     """Родительский класс обьектов игры"""
@@ -95,6 +107,7 @@ class Snake(GameObject):
         self.body_color = SNAKE_COLOR
         self.last = None
         self.reset()
+        self.direction = RIGHT
 
     def get_head_position(self):
         """Метод для получения позиции головы змейки"""
@@ -136,16 +149,6 @@ class Snake(GameObject):
 
 def handle_keys(snake):
     """Функция обработки действий пользователя."""
-    TURNS = {
-        (pygame.K_UP, LEFT): UP,
-        (pygame.K_UP, RIGHT): UP,
-        (pygame.K_DOWN, LEFT): DOWN,
-        (pygame.K_DOWN, RIGHT): DOWN,
-        (pygame.K_LEFT, UP): LEFT,
-        (pygame.K_LEFT, DOWN): LEFT,
-        (pygame.K_RIGHT, UP): RIGHT,
-        (pygame.K_RIGHT, DOWN): RIGHT,
-    }
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -174,7 +177,7 @@ def main():
             """Рост змеи"""
             snake.length += 1
             apple.position = apple.randomize_position(snake.positions)
-        if snale_head in snake.positions[2:]:
+        if snale_head in snake.positions[3:]:
             """Проверка на столкновение змейки"""
             screen.fill(BOARD_BACKGROUND_COLOR)
             snake.reset()
